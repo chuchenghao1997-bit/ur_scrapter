@@ -1,5 +1,6 @@
 import requests
-import datetime
+from datetime import datetime
+from zoneinfo import ZoneInfo   # Python 3.9+ 内置，无需安装
 import html
 import math
 import json
@@ -12,10 +13,6 @@ from email.header import Header
 # ======================================================
 # 🔧 配置区
 # ======================================================
-
-# from_addr = "chuchenghao1997@gmail.com"                  # 发件人（你自己的 Gmail）
-# password = "ezbj wybm fpza fjxr"                          # Gmail 应用专用密码
-# to_addrs = ["chuchenghao1997@gmail.com", "ganganhaohao2024@gmail.com"]  # 收件人，可以填多个
 
 from_addr = os.environ["EMAIL_FROM"]
 password = os.environ["EMAIL_PASSWORD"]
@@ -32,7 +29,7 @@ danchi_list = [
     {"name": "プラザ新小金井", "shisya": "20", "danchi": "514", "referer": "https://www.ur-net.go.jp/chintai/kanto/tokyo/20_5140.html"},
     {"name": "コンフォール明神台", "shisya": "40", "danchi": "400", "referer": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_4000.html"},
     # {"name": "越谷レイクタウン", "shisya": "50", "danchi": "180", "referer": "https://www.ur-net.go.jp/chintai/kanto/saitama/50_1800.html"},
-    # {"name": "浜甲子園なぎさ街", "shisya": "80", "danchi": "515", "referer": "https://www.ur-net.go.jp/chintai/kansai/hyogo/80_5150.html"},
+    {"name": "浜甲子園なぎさ街", "shisya": "80", "danchi": "515", "referer": "https://www.ur-net.go.jp/chintai/kansai/hyogo/80_5150.html"},
 ]
 
 # ======================================================
@@ -136,7 +133,8 @@ def save_state(state):
 
 def write_log(text):
     os.makedirs(LOG_DIR, exist_ok=True)
-    log_file = os.path.join(LOG_DIR, f"{datetime.date.today()}.log")
+    today_jst = datetime.now(ZoneInfo("Asia/Tokyo")).date()
+    log_file = os.path.join(LOG_DIR, f"{today_jst}.log")
     with open(log_file, "a", encoding="utf-8") as f:
         f.write(text + "\n")
 
@@ -145,10 +143,10 @@ def write_log(text):
 # ======================================================
 
 def main():
-    now = datetime.datetime.now()
+    now_jst = datetime.now(ZoneInfo("Asia/Tokyo"))
     header = (
         "\n==============================\n"
-        f"==== 抓取时间: {now} ====\n"
+        f"==== 抓取时间: {now_jst.strftime('%Y-%m-%d %H:%M:%S')} (JST) ====\n"
         "==============================\n"
     )
     print(header)
