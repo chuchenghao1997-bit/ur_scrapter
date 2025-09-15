@@ -13,9 +13,13 @@ from email.header import Header
 # 🔧 配置区
 # ======================================================
 
-from_addr = "chuchenghao1997@gmail.com"                  # 发件人（你自己的 Gmail）
-password = "ezbj wybm fpza fjxr"                          # Gmail 应用专用密码
-to_addrs = ["chuchenghao1997@gmail.com", "ganganhaohao2024@gmail.com"]  # 收件人，可以填多个
+# from_addr = "chuchenghao1997@gmail.com"                  # 发件人（你自己的 Gmail）
+# password = "ezbj wybm fpza fjxr"                          # Gmail 应用专用密码
+# to_addrs = ["chuchenghao1997@gmail.com", "ganganhaohao2024@gmail.com"]  # 收件人，可以填多个
+
+from_addr = os.environ["EMAIL_FROM"]
+password = os.environ["EMAIL_PASSWORD"]
+to_addrs = [addr.strip() for addr in os.environ["EMAIL_TO"].split(",")]
 
 STATE_FILE = "ur_state.json"
 LOG_DIR = "logs"
