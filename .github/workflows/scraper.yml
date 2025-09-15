@@ -1,0 +1,39 @@
+name: UR Scraper
+
+on:
+  schedule:
+    - cron: "*/15 0-10 * * *"   # UTC 时间，每 15 分钟跑一次（对应日本时间 9:00–19:00）
+  workflow_dispatch:            # 允许你手动触发一次
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run scraper
+        run: |
+          python ur_scraper.py
+        env:
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+
+      - name: Commit logs and state
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add logs/ ur_state.json || true
+          git commit -m "Update logs and state" || echo "No changes"
+          git push
