@@ -29,7 +29,7 @@ danchi_list = [
     {"name": "プラザ新小金井", "shisya": "20", "danchi": "514", "referer": "https://www.ur-net.go.jp/chintai/kanto/tokyo/20_5140.html"},
     {"name": "コンフォール明神台", "shisya": "40", "danchi": "400", "referer": "https://www.ur-net.go.jp/chintai/kanto/kanagawa/40_4000.html"},
     # {"name": "越谷レイクタウン", "shisya": "50", "danchi": "180", "referer": "https://www.ur-net.go.jp/chintai/kanto/saitama/50_1800.html"},
-    {"name": "浜甲子園なぎさ街", "shisya": "80", "danchi": "515", "referer": "https://www.ur-net.go.jp/chintai/kansai/hyogo/80_5150.html"},
+    # {"name": "浜甲子園なぎさ街", "shisya": "80", "danchi": "515", "referer": "https://www.ur-net.go.jp/chintai/kansai/hyogo/80_5150.html"},
 ]
 
 # ======================================================
