@@ -2,8 +2,11 @@ name: UR Scraper
 
 on:
   schedule:
-    - cron: "*/15 0-10 * * *"   # UTC 时间，每 15 分钟跑一次（对应日本时间 9:00–19:00）
-  workflow_dispatch:            # 允许你手动触发一次
+    - cron: "*/15 0-10 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # 👈 这里给 workflow 写权限
 
 jobs:
   run-scraper:
