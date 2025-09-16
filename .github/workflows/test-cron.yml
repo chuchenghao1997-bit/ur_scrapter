@@ -1,0 +1,13 @@
+name: Test Cron
+
+on:
+  schedule:
+    - cron: "* * * * *"   # 每分钟执行一次
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show time
+        run: date -u
